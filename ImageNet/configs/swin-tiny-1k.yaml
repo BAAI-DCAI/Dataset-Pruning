@@ -1,0 +1,71 @@
+ACCELERATION:
+  FUSED_LAYERNORM: true # for acceleration (only support for ViT and Swin)
+  FUSED_WINDOW_PROCESS: true # for acceleration (only support for Swin)
+AMP_ENABLE: true # enable PyTorch automatic mixed precision (amp)
+AUG:
+  AUTO_AUGMENT: true # whether to enable DALI Auto Augmentation
+  # COLOR_JITTER: 0.4 # [temporarily not supported] Color Jitter is enabled when not using AA
+  CUTMIX: 0 # cutmix alpha, cutmix enabled if > 0
+  CUTMIX_MINMAX:  # cutmix min/max ratio, overrides alpha and enables cutmix if set
+  MIXUP: 0 # mixup alpha, mixup enabled if > 0
+  MIXUP_MODE:  # how to apply mixup/cutmix params. Per "batch", "pair", or "elem"
+  MIXUP_PROB:  # probability of performing mixup or cutmix when either/both is enabled
+  MIXUP_SWITCH_PROB:  # probability of switching to cutmix when both mixup and cutmix enabled
+COMPILE_ENABLE: false # enable PyTorch 2.0 model.compile()
+DATA:
+  BATCH_SIZE_TRAIN: 128 # batch size for single GPU, global bs is 1024
+  BATCH_SIZE_VAL: 125 # batch size for single GPU, global bs is 1000
+  DATASET: ImageNet-1K # dataset name
+  DATA_PATH_TRAIN: ImageNet-1K/train # path to train dataset
+  DATA_PATH_TRAIN_FILE: ImageNet-1K/train/file_list.txt # path to file containing names of samples to be trained, may be overwritten by program
+  DATA_PATH_VAL: ImageNet-1K/val # path to validation dataset
+  IMG_SIZE: 224 # input image size
+  INTERPOLATION: cubic # interpolation to resize image (lanczos, linear, cubic)
+  NUM_WORKERS: 8 # number of data loading threads
+  TRAIN_SiZE: 0 # number of images in training dataset, would be overwritten by program
+  REAL_JSON_PATH: real.json # path to real.json (ImageNet-ReaL val)
+  REAL_LABEL: true # whether to use ImageNet-ReaL val
+  VAL_SIZE: 0 # number of images in validation dataset, would be overwritten by program
+EVAL_MODE: false # perform evaluation only
+LOCAL_RANK: 0 # local rank for DistributedDataParallel, would be overwritten by program
+MODEL:
+  DROP_PATH_RATE: 0.2 # drop path rate (only support for Swin, Swin-v2 and ConvNeXt)
+  DROP_RATE: 0.0 # dropout rate (only support for ViT, Swin and Swin-v2)
+  LABEL_SMOOTHING: 0.1 # label smoothing
+  MODEL_CONFIG_PATH: configs/model_configs/SwinTransformer/tiny.yaml # model config (Swin and Swin-v2 need)
+  NAME: Swin # model name
+  NUM_CLASSES: 0 # number of classes, would be overwritten by program
+  PRETRAINED: '' # pretrained weight from checkpoint, may be overwritten by program
+  RESUME: '' # resume from checkpoint
+  TYPE: swin # swin, swinv2, resnet, vit, convnext
+OUTPUT:  # path to output folder, would be overwritten by program
+PRINT_FREQ: 100 # frequency to logging info
+SAVE_FREQ: 1 # frequency to save checkpoint
+SEED: 1 # fixed random seed
+THROUGHPUT_MODE: false # test throughput only
+TRAIN:
+  ACCUMULATION_STEPS: 1 # gradient accumulation steps
+  AUTO_RESUME: true # auto resume from latest checkpoint
+  BASE_LR: 0.001
+  CLIP_GRAD: 5.0 # clip gradient norm
+  EPOCHS: 300
+  LR_SCHEDULER:
+    DECAY_EPOCHS: 30 # epoch interval to decay LR, used in StepLRScheduler
+    DECAY_RATE: 0.1 # LR decay rate, used in StepLRScheduler
+    MULTISTEPS: [ ] # used in MultiStepLRScheduler
+    NAME: cosine # cosine,linear, step, multistep
+    WARMUP_PREFIX: true # warmup_prefix used in CosineLRScheduler
+  MIN_LR: 1.0e-5 # used in CosineLRScheduler
+  OPTIMIZER:
+    BETAS: # used in adamw, fused_adam, fused_lamb
+      - 0.9
+      - 0.999
+    EPS: 1.0e-08 # used in adamw, fused_adam, fused_lamb
+    MOMENTUM: 0.9 # used in sgd
+    NAME: adamw # adamw, sgd, fused_adam, fused_lamb
+  START_EPOCH: 0
+  USE_CHECKPOINT: false # whether to use gradient checkpointing to save memory
+  WARMUP_EPOCHS: 20
+  WARMUP_LR: 1.0e-6
+  WEIGHT_DECAY: 0.05
+WORLD_SIZE: 8 # world size for DistributedDataParallel, would be overwritten by program

@@ -1,0 +1,19 @@
+APE: false
+DEPTHS:
+- 2
+- 2
+- 18
+- 2
+EMBED_DIM: 128
+IN_CHANS: 3
+MLP_RATIO: 4.0
+NUM_HEADS:
+- 4
+- 8
+- 16
+- 32
+PATCH_NORM: true
+PATCH_SIZE: 4
+QKV_BIAS: true
+QK_SCALE: null
+WINDOW_SIZE: 7
