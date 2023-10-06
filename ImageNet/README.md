@@ -177,12 +177,12 @@ We supply the 75% coreset (25% pruned) of ImageNet-1K and ImageNet-21K_Fall11, n
 
 ## 4. Reproduce coreset
 
-We supply a series of template config file in `configs` folder. You can choose config of models and datasets that interest you.*Remember to modify the data paths in the config file.*
+We supply a series of template config file in `configs` folder. You can choose config of models and datasets that interest you. *Remember to modify the data paths in the config file.*
 
 For example, produce 75% coreset of ImageNet-1K on Swin-T.
 
 ```
 torchrun --rdzv-backend=c10d --rdzv-endpoint=localhost:0 --nnodes=1 --nproc_per_node=8 main_and_produce.py --config ./configs/swin-tiny-1k.yaml --output output-swint-produce
 
-python get_coreset.py --input output-swint-produce --dataset_file_list ImageNet-1K/file_list.txt --fraction 0.75 --window 10 --output ImageNet-1K/train/IN1K_75_file_list.txt
+python get_coreset.py --input output-swint-produce --dataset_file_list ImageNet-1K/file_list.txt --fraction 0.75 --window 10 --output ImageNet-1K/train/IN1K_75_file_list_own.txt
 ```
