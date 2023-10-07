@@ -502,7 +502,11 @@ We explore several strategies of keeping which one in a weakly connected compone
 1. keeping the one with biggest distance to cluster centroid (SemDeDup), referred as "far"
 1. keeping the one whose distance to cluster centroid is exactly the median, reffered as "middle"
 1. keeping the one whose distance to mean of weakly connected component is exactly the median, reffered as "inner-middle"
-1. keeping the one with biggest `clip_score`, referred as "clip_score-max"
+1. keeping the one with biggest `clip_score`, referred as "clip_score-max" (this method can be converted to SemDeDup-like computing without building the graph by sorting the cluster embeddings by `clip_score`)
+
+We would like to point out that our framework can support other strategies simply.
+
+
 
 We conduct experiments on CLIPA-B/16 and samples seen are set to 2.4B 112X112 + 131M 224X224. (See the training recipe in `clipa` for more information.)
 
@@ -517,7 +521,7 @@ Experimental results are:
 | middle 50.4% 1.035B         | 66.22                     |
 | inner-middle 46.4% 951.7M   | 66.31                     |
 | inner-middle 50.3% 1.033B   | 66.46                     |
-| clip_score-max 46.4% 951.7M |                           |
+| clip_score-max 46.4% 951.7M | 66.43                     |
 
 
 
