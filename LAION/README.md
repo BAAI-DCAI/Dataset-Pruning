@@ -390,7 +390,7 @@ As mentioned before, the process of SemDeDup is:
 * The 1-3 steps are implemented in `SemDeDup_compute_score.py`, and `M`, `clip_score` are saved. The progress is:
 
   * train kmeans for some epochs, sampling some embedding files in each epoch because the total 2B embeddings are too large
-  * select a good result of kmeans, and then assign all 2B embeddings to clusters
+  * select a good result of kmeans, and then assign all 2B embeddings to clusters (ours result of kmeans is supplied as `centroids_supplied.npy`)
   * inversely, re-organize the clusters to `csv` files that record the index ( [`file_id`, `row_id`] means that the embedding is the `row_id`-th of `file_id`-th `npy` file in `img_emb` folder) and primary key of each embedding belonging to the cluster
   * save the embeddings (select the `row_id`-th of `file_id`-th `npy` file) of a cluster to a `npy` file
   * compute `M` and save it (chunkwise due to memory limit)

@@ -3,7 +3,7 @@ OMP_NUM_THREADS=1 torchrun --nnodes=${WORLD_SIZE} --nproc_per_node=8 --node_rank
     --save-most-recent \
     --zeroshot-frequency 1 \
     --train-data 'LAION-2B-data/{000000..232319}.tar' \
-    --coreset 'LAION-coreset/SemDeDup_0.945' \
+    --coreset LAION-coreset/SemDeDup_0.945 \
     --dataset-type webdataset \
     --lr "2.56e-5" \
     --beta1 0.9 \

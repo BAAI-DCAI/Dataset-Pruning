@@ -8,7 +8,7 @@ OMP_NUM_THREADS=1 torchrun --nproc_per_node 8 --nnodes 1 -m training.main \
     --zeroshot-frequency 1 \
     --log-every-n-steps 62 \
     --dataset-type webdataset \
-    --train-data LAION-2B-data/{000000..232319}.tar \
+    --train-data 'LAION-2B-data/{000000..232319}.tar' \
     --imagenet-val ImageNet-1K/val \
     --coreset LAION-coreset/SemDeDup_0.945 \
     --train-num-samples=20000000 \

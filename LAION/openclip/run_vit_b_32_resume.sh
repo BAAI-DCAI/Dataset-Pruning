@@ -9,7 +9,7 @@ OMP_NUM_THREADS=1 torchrun --nproc_per_node 8 --nnodes 1 -m training.main \
     --log-every-n-steps 62 \
     --dataset-type webdataset \
     --resume openclip_ds/logs/2023_08_28-21_24_54-model_ViT-B-32-lr_0.002-b_4096-j_4-p_amp/checkpoints \
-    --train-data LAION-2B-data/{000000..232319}.tar \
+    --train-data 'LAION-2B-data/{000000..232319}.tar' \
     --imagenet-val ImageNet-1K/val \
     --coreset LAION-coreset/SemDeDup_0.945 \
     --train-num-samples=20000000 \
