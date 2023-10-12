@@ -448,7 +448,7 @@ Experimental results are:
 | 20%                                           |                           |
 | :-------------------------------------------- | :------------------------ |
 | *condition*                                   | *IN-1K-val zero-shot Acc* |
-| LAION-400M $(407M)^*$                       | 58.28                     |
+| LAION-400M $`(`$407M$`)^*`$                       | 58.28                     |
 | SemDeDup_20% (411M)                           | 56.73                     |
 | SemDeDup_50% -> clip_score_top40% (411M)      | 60.92                     |
 | SemDeDup_50% -> clip_score_rank15%-55% (411M) | 61.26                     |
