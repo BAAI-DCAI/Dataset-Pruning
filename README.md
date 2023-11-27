@@ -16,4 +16,4 @@ This repository contains code of pruning large-scale datasets written by BAAI-DC
 
 
 
-If you want the condensed ImageNet1K/21K and LAION2B, feel free to contact us: zhaobo@baai.ac.cn .
+We have released some coresets of ImageNet-1K/21K. More coresets are coming! If you urgently need the compressed ImageNet-1K/21K or LAION-2B, feel free to contact us: zhaobo@baai.ac.cn.
