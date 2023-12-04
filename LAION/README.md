@@ -508,7 +508,7 @@ We would like to point out that our framework can support other strategies simpl
 
 
 
-We conduct experiments on CLIPA-B/16 and samples seen are set to 2.4B 112X112 + 131M 224X224. (See the training recipe in `clipa` for more information.)
+We conduct experiments on CLIPA-B/16 and samples seen are set to 2.4B 112px + 131M 224px. (See the training recipe in `clipa` for more information.)
 
 Experimental results are:
 
@@ -517,7 +517,7 @@ Experimental results are:
 | LAION-2B                    | 64.41                     |
 | far 50% 1.027B              | 66.30                     |
 | middle 43.9% 901.4M         | 66.62                     |
-| middle 46.4% 951.7M         | 66.81                     |
+| middle 46.4% 951.7M         | **66.81**                 |
 | middle 50.4% 1.035B         | 66.22                     |
 | inner-middle 46.4% 951.7M   | 66.31                     |
 | inner-middle 50.3% 1.033B   | 66.46                     |
