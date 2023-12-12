@@ -228,7 +228,9 @@ def calc_SemDeDup_score_and_clip_score_multigpu(input_cluster_emb_dir, input_clu
                     split_num = max(1, len(embs) * len(embs) // 2000000)
                     for counter in range(split_num):
                         pairwise_sim_matrix = torch.matmul(
-                            embs[counter * total_n // split_num:(counter + 1) * total_n // split_num], embs)
+                            embs,
+                            embs[counter * total_n // split_num:(counter + 1) * total_n // split_num].t()
+                        )
                         triu_sim_matrix = torch.triu(pairwise_sim_matrix, diagonal=1 - counter * total_n // split_num)
                         SemDeDup_score_lst.extend(torch.max(triu_sim_matrix, dim=0)[0].cpu().numpy())
                 except:
