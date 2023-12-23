@@ -151,7 +151,7 @@ We propose a simple yet effective dataset pruning method by exploring both the p
 
 *Remember to modify the data paths in the config file.*
 
-We supply the 75% coreset (25% pruned) of ImageNet-1K and ImageNet-21K_Fall11, namely `IN1K_75_file_list.txt` and `IN21KFall_75_file_list.txt` (unzip `coresets_supplied.zip`). You can move them to the correspond training set folder.
+We supply the 75% coreset (25% pruned) of ImageNet-1K and ImageNet-21K_Fall11, namely `IN1K_75_file_list.txt` and `IN21KFall_75_file_list.txt` ([download link](https://huggingface.co/datasets/Isaachhe/Dataset-Pruning/tree/main/ImageNet)). You can move them to the correspond training set folder.
 
 * evaluate the 75% coreset of ImageNet-1K on Swin-T
 
