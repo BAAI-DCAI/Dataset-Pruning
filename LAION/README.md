@@ -549,7 +549,7 @@ Experimental results are:
 
 
 
-We also evaluate our coreset on [DataComp](https://github.com/mlfoundations/datacomp?tab=readme-ov-file#evaluating) BYOD track.
+We also evaluate our coresets on [DataComp](https://github.com/mlfoundations/datacomp?tab=readme-ov-file#evaluating) BYOD track.
 
 | Scale: large       | ImageNet acc. | Average perf. |
 | ------------------ | ------------- | ------------- |
