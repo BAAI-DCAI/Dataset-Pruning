@@ -383,19 +383,26 @@ As mentioned before, the process of SemDeDup is:
 
 3. in each cluster, compute `M` (and also save `clip_score`)
 
-4. in each cluster, get coreset through `M` and threshold, `clip_score`
+4. in each cluster, get coreset through `M`, threshold and  `clip_score`
 
 
 
-* The 1-3 steps are implemented in `SemDeDup_compute_score.py`, and `M`, `clip_score` are saved. The progress is:
-
+* The first step is implemented in `preprocess.py`. The progress is:
   * train kmeans for some epochs, sampling some embedding files in each epoch because the total 2B embeddings are too large
+  
   * select a good result of kmeans, and then assign all 2B embeddings to clusters (ours result of kmeans is supplied as `centroids_supplied.npy`, [download link](https://huggingface.co/datasets/Isaachhe/Dataset-Pruning/tree/main/LAION))
-  * inversely, re-organize the clusters to `csv` files that record the index ( [`file_id`, `row_id`] means that the embedding is the `row_id`-th of `file_id`-th `npy` file in `img_emb` folder) and primary key of each embedding belonging to the cluster
+  
+  * inversely, re-organize the clusters to `csv` files that record the index ( [`file_id`, `row_id`] means that the embedding is the `row_id`-th of `file_id`-th `npy` file in `img_emb` folder) , primary key and `clip_score` of each embedding belonging to the cluster
+
   * save the embeddings (select the `row_id`-th of `file_id`-th `npy` file) of a cluster to a `npy` file
+  
+  It takes approximately 1 day to run these on a node with 8 NVIDIA A100 GPUs.
+
+* The 2-3 steps are implemented in `SemDeDup_compute_score.py`, and `M`, `clip_score` are saved. 
+
   * compute `M` and save it (chunkwise due to memory limit)
   
-  It takes approximately 1.5 days to run these on a node with 8 NVIDIA A100 GPUs.
+  It takes approximately a half day to run these on a node with 8 NVIDIA A100 GPUs.
   
 * The step 4 is implemented in `SemDeDup_get_coreset.py`. There are 2 stages:
 
@@ -404,13 +411,18 @@ As mentioned before, the process of SemDeDup is:
   * secondly, further select remaining samples by `clip_score`
   
 
+The distribution of `SemDeDup_score` is shown below.
 
+<img src="/Users/isaache/Downloads/Dataset-Pruning/LAION/assets/distribution.png" alt="distribution" style="zoom:6%;" /><img src="/Users/isaache/Downloads/Dataset-Pruning/LAION/assets/distribution-large.png" alt="distribution" style="zoom:6%;" />
 
 We cluster embeddings to 100K clusters and keep examples with low similarity to cluster centroids.
 
 * *Notes: In our experiments, cluster_787 is too large to compute `M`. We find that the image of cluster_787 is almost an image of ["no obejct"](https://i.ebayimg.com/00/s/ODAwWDgwMA==/z/vngAAOSwgx9geX2H/$_20.JPG), so we remove the whole cluster_787.*
 
+
 ```
+python preprocess.py
+
 python SemDeDup_compute_score.py
 
 python SemDeDup_get_coreset.py
@@ -448,7 +460,7 @@ Experimental results are:
 | 20%                                           |                           |
 |:----------------------------------------------| :------------------------ |
 | *condition*                                   | *IN-1K-val zero-shot Acc* |
-| LAION-400M 407M$`^*`$                           | 58.28                     |
+| LAION-400M (407M$`^*`$)                           | 58.28                     |
 | SemDeDup_20% (411M)                           | 56.73                     |
 | SemDeDup_50% -> clip_score_top40% (411M)      | 60.92                     |
 | SemDeDup_50% -> clip_score_rank15%-55% (411M) | 61.26                     |
@@ -490,21 +502,28 @@ In this part, we implement the graph-building process of semantically de-duplica
 
 We use batch BFS to build the graph that we explore all the next-depth-level nodes at the same time by matrix operations.
 
-```
-python dedup.py
-(costing 1 day to run it once on a node with 8 NVIDIA A100 GPUs)
-```
-
 
 
 We explore several strategies of keeping which one in a weakly connected component:
 
 1. keeping the one with biggest distance to cluster centroid (SemDeDup), referred as "far"
+
 1. keeping the one whose distance to cluster centroid is exactly the median, reffered as "middle"
+
 1. keeping the one whose distance to mean of weakly connected component is exactly the median, reffered as "inner-middle"
+
 1. keeping the one with biggest `clip_score`, referred as "clip_score-max" (this method can be converted to SemDeDup-like computing without building the graph by sorting the cluster embeddings by `clip_score`)
 
+Besides, we save `clip_score` and cosine similarity with cluster centroid of each kept sample for further experiments.
+
 We would like to point out that our framework can support other strategies simply.
+
+```
+# python preprocess.py
+
+python dedup.py
+(costing 1 day to run it once on a node with 8 NVIDIA A100 GPUs)
+```
 
 
 

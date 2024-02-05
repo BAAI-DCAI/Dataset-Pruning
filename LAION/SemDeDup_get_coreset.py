@@ -41,7 +41,7 @@ def calc(process_id, num_process, num_cluster, threshold, output_dir, clip_score
 
 
 if __name__ == '__main__':
-    num_cluster = 100000
+    num_clusters = 100000
     total_num = 2053332591
     tar_num = 232320
     threshold = 0.945
@@ -56,7 +56,7 @@ if __name__ == '__main__':
     for process_id in range(num_process):
         p = multiprocessing.Process(target=calc,
                                     args=(
-                                        process_id, num_process, num_cluster, threshold, output_dir, clip_score_range))
+                                        process_id, num_process, num_clusters, threshold, output_dir, clip_score_range))
         p.start()
         process_lst.append(p)
     for p in process_lst:
@@ -64,7 +64,7 @@ if __name__ == '__main__':
 
     total_array = []
     total_score_array = []
-    for cluster_id in range(num_cluster):
+    for cluster_id in range(num_clusters):
         if cluster_id == 787:
             continue
         total_array.append(np.load(f"{output_dir}/cluster_{cluster_id}.npy"))
