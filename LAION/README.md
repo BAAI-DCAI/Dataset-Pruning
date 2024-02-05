@@ -413,7 +413,7 @@ As mentioned before, the process of SemDeDup is:
 
 The distribution of `SemDeDup_score` is shown below.
 
-<img src="/Users/isaache/Downloads/Dataset-Pruning/LAION/assets/distribution.png" alt="distribution" style="zoom:6%;" /><img src="/Users/isaache/Downloads/Dataset-Pruning/LAION/assets/distribution-large.png" alt="distribution" style="zoom:6%;" />
+<img src="assets/distribution.png" alt="distribution" style="zoom:6%;" /><img src="assets/distribution-large.png" alt="distribution" style="zoom:6%;" />
 
 We cluster embeddings to 100K clusters and keep examples with low similarity to cluster centroids.
 
@@ -546,3 +546,24 @@ Experimental results are:
 
 * Current experiments show that "middle", "inner-middle" and "clip_score-max" beat "far" (SemDeDup).
 * 46.4% "middle" coreset performs best.
+
+
+
+We also evaluate our coreset on [DataComp](https://github.com/mlfoundations/datacomp?tab=readme-ov-file#evaluating) BYOD track.
+
+| Scale: large       | ImageNet acc. | Average perf. |
+| ------------------ | ------------- | ------------- |
+| middle 46.4%       | 60.7          | 52.0          |
+| Baseline: LAION-2B | 58.5          | 51.5          |
+
+| Scale: medium                                                | ImageNet acc. | Average perf. |
+| ------------------------------------------------------------ | ------------- | ------------- |
+| middle 46.4% -> clip_score_rank40%-60% -> cosine_with_centroid_rank15%-35% | 36.8          | 38.5          |
+| middle 46.4% -> clip_score_rank40%-60% -> cosine_with_centroid_rank20%-40% | 37.0          | 37.2          |
+| --------------------------------------  baselines below -------------------------------------- | ----          | ----          |
+| **[current rank1]** Image-cluster and CLIP (40%) + CC12M (50%) + Eval_trainsets (MNIST*3) | 32.6          | 39.8          |
+| **[current rank2]** CLIP (30%) + CC12M (50%) + Eval_trainsets (MNIST*3) | 28.5          | 39.0          |
+| **[current rank3]** Image-based intersect (CLIP score (L/14 30%) and BLIP2 (L/14 75%)) | 34.7          | 37.5          |
+| **[current rank4]** CLIP score (L/14 30%) and BLIP2 (remaining 70%, filtered) | 31.8          | 37.3          |
+| **[current rank5]** Baseline: 4 external sources             | 36.0          | 34.5          |
+
