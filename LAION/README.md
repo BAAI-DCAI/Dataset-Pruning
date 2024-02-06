@@ -413,7 +413,7 @@ As mentioned before, the process of SemDeDup is:
 
 The distribution of `SemDeDup_score` is shown below.
 
-<img src="assets/distribution.png" alt="distribution" style="zoom:6%;" /><img src="assets/distribution-large.png" alt="distribution" style="zoom:6%;" />
+![distribution](assets/distribution.png)
 
 We cluster embeddings to 100K clusters and keep examples with low similarity to cluster centroids.
 
