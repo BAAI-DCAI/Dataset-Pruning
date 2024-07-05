@@ -12,7 +12,7 @@ Dataset pruning (or coreset selection) aims to remove those less-informative tra
 
 
 
-This repository contains code of pruning large-scale datasets written by BAAI-DCAI, including ImageNet and LAION. Please open the corresponding folder for more information: [ImageNet](https://github.com/BAAI-DCAI/Dataset-Pruning/tree/main/ImageNet) and [LAION](https://github.com/BAAI-DCAI/Dataset-Pruning/tree/main/LAION)
+This repository contains code of pruning large-scale datasets written by BAAI-DCAI, including ImageNet and LAION. Please open the corresponding folder for more information: [ImageNet](https://github.com/BAAI-DCAI/Dataset-Pruning/tree/main/ImageNet) and [LAION](https://github.com/BAAI-DCAI/Dataset-Pruning/tree/main/LAION).
 
 
 
